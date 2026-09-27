@@ -1,0 +1,32 @@
+name: package
+
+on:
+    push:
+        branches: ["prod"]
+    pull_request:
+        branches: ["prod"]
+
+permissions:
+    contents: read
+    pull-requests: read
+
+jobs:
+    package:
+        runs-on: ubuntu-slim
+        steps:
+            - uses: actions/checkout@v7
+            - name: package in hbsd
+              id: test
+              uses: vmactions/hardenedbsd-vm@v1
+              with:
+                  release: "15"
+                  sync: rsync
+                  copyback: false
+                  sync-time: true
+                  #cache-after-prepare: true
+                  prepare: |
+                      echo "PREPARE"
+                      ls -alhg
+                  run: |
+                      echo "RUN"
+                      ls -alhg

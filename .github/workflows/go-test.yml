@@ -1,27 +1,24 @@
 name: go-test
 
 on:
-  push:
-    branches: [ "prod", "devel" ]
-  pull_request:
-    branches: [ "prod", "devel" ]
+    push:
+        branches: ["prod", "devel"]
+    pull_request:
+        branches: ["prod", "devel"]
 
 permissions:
-  contents: read
-  pull-requests: read
+    contents: read
+    pull-requests: read
 
 jobs:
-  test:
-    runs-on: ubuntu-slim
-    steps:
-    - uses: actions/checkout@v7
-    - uses: actions/setup-go@v7
-      with:
-        go-version-file: 'go.mod'
-        cache: true
+    test:
+        runs-on: ubuntu-slim
+        steps:
+            - uses: actions/checkout@v7
+            - uses: actions/setup-go@v7
+              with:
+                  go-version-file: "go.mod"
+                  cache: true
 
-    - name: Test
-      run: CGO_ENABLED=1 go test -v .
-
-    - name: Build
-      run: CGO_ENABLED=1 go build -v -o dpxlab.elf .
+            - name: Test
+              run: CGO_ENABLED=1 go test -v .
