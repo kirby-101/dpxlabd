@@ -16,7 +16,7 @@ STAGE_PLIST		:= ${STAGE_DIR}/+PLIST
 STAGE_MANIFEST	:= ${STAGE_DIR}/+MANIFEST
 STAGE_BIN		:= ${STAGE_DIR}${STAGE_PREFIX}/bin/dpxlabd
 STAGE_RC		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/rc.d/dpxlabd
-STAGE_CFG		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/dpxlabd.conf
+STAGE_CFG		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/dpxlabd.yml
 
 
 .PHONY: all

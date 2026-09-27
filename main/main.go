@@ -14,7 +14,7 @@ import (
 var Version string
 
 const (
-	defaultConfigFilePath = "/usr/local/etc/dpxlabd.conf"
+	defaultConfigFilePath = "/usr/local/etc/dpxlabd.yml"
 	rwForOwnerOnlyPerm    = 0o600
 )
 
