@@ -66,3 +66,6 @@ package: manifest stage
 
 install:
 	pkg add ${DIST_DIR}/dpxlabd-*.pkg
+
+bullshit:
+	 git add . && git commit -m "fix?" && git push
