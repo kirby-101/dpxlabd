@@ -38,6 +38,7 @@
       border-radius: 0px;
       box-shadow: 0 0 15px #00FF41;
       max-height: 80vh;
+      text-align: center;
       overflow-y: auto;
     }
 
