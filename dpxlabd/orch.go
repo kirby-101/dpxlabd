@@ -82,8 +82,7 @@ func (o *Orchestrator) run() {
 
 		case <-o.signals:
 			o.Logger.Info("catched SIGINT/SIGTERM")
-			return
-
+			o.Stop()
 		}
 	}
 }
