@@ -2,9 +2,9 @@ name: package
 
 on:
     push:
-        branches: ["prod"]
+        branches: []
     pull_request:
-        branches: ["prod"]
+        branches: []
 
 permissions:
     contents: read
