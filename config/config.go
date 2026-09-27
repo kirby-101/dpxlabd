@@ -1,12 +1,15 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
+
+var ErrorFatal = errors.New("fatal error in config.Load()")
 
 type Config struct {
 	WWW struct {

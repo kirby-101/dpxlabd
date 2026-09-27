@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"sync"
 
 	"github.com/kirby-101/dpxlab/config"
 	"github.com/kirby-101/dpxlab/db"
@@ -64,7 +65,9 @@ func setupLogger(filepath, level string) (*logging.Logger, error) {
 
 // !
 func setupDatabase() (*db.Database, error) {
-	return &db.Database{}, nil
+	return &db.Database{
+		Mutex: sync.Mutex{},
+	}, nil
 }
 
 func setupConfig(filepath string) (*config.Config, error) {
