@@ -21,14 +21,16 @@ func (o *Orchestrator) RegisterRoute(route string, handler RouteHandler) {
 
 func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
 	// Default RouteHandler
-	var h RouteHandler
+	var h = o.www.errR
 
 	// exact match?
 	if _h, oke := o.www.routes[r.URL.Path]; oke {
+		// 200
 		h = _h
 		o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, "using handler", r.URL.Path)
 	} else {
-		o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, "unknown handler", r.URL.Path)
+		// 404
+		o.Logger.Debug(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, "unknown handler", r.URL.Path)
 	}
 
 	h.Handle(

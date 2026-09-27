@@ -47,8 +47,10 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 		return
 	}
 
-	e, _ := assetsFS.ReadDir("/")
-	ctx.Orch.Logger.Debug(fmt.Sprintf("%#v", e))
+	e, _ := assetsFS.ReadDir("content")
+	ctx.Orch.Logger.Debug(ctx.R.URL.Path, fmt.Sprintf("%#v", e))
+
+	// is valid route?
 
 	catServeAssetsFS(ctx, ctx.R.URL.Path)
 }
