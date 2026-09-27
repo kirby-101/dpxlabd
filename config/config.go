@@ -10,8 +10,8 @@ import (
 
 type Config struct {
 	WWW struct {
-		Address string
-	}
+		Address string `yaml:"addr"`
+	} `yaml:"www"`
 }
 
 func Load(file *os.File) (*Config, error) {
