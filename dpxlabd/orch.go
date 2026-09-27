@@ -59,8 +59,6 @@ func (o *Orchestrator) Start() (err error) {
 		syscall.SIGTERM,
 	)
 
-	//o.StartWWW()
-
 	o.run()
 
 	return err
@@ -73,12 +71,19 @@ func (o *Orchestrator) Stop() {
 	os.Exit(0)
 }
 
-func (o *Orchestrator) run() {
+func (o *Orchestrator) run() error {
 	defer o.Stop()
+
+	// http listener
+	var c_err = make(chan error, 1)
+	go func() {
+		c_err <- o.StartWWW()
+	}()
 
 	for {
 		select {
-		//case X:
+		case err := <-c_err:
+			o.Logger.Error("HTTP Listener", fmt.Sprintf("%#v", err))
 
 		case <-o.signals:
 			o.Logger.Info("catched SIGINT/SIGTERM")
