@@ -14,9 +14,9 @@ import (
 
 func setupRoutes() map[string]dpxlabd.RouteHandler {
 	return map[string]dpxlabd.RouteHandler{
-		"/":       routes.NewIndexRoute(),
-		"/assets": assets.NewAssetsRoute(),
-		"/md":     md.NewMarkdownRoute(),
+		"/":        routes.NewIndexRoute(),
+		"/assets/": assets.NewAssetsRoute(),
+		"/md":      md.NewMarkdownRoute(),
 	}
 }
 

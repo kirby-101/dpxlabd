@@ -30,7 +30,5 @@ func (r *IndexRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 		return
 	}
 
-	ctx.Orch.Logger.Debug("index handler called")
-
 	CatServeFS(ctx, htmlFS, indexPage)
 }

@@ -6,7 +6,7 @@ import (
 
 func (o *Orchestrator) StartWWW() error {
 	o.Logger.Info("Listening on", o.cfg.WWW.Address)
-	o.Logger.Info("Routers")
+	//o.Logger.Info("Routers", fmt.Sprintf(""))
 	o.www.mux.HandleFunc("/", o.HandleRoute)
 	return http.ListenAndServe(o.cfg.WWW.Address, o.www.mux)
 }

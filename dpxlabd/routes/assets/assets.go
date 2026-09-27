@@ -1,6 +1,7 @@
 package assets
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
@@ -21,6 +22,9 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	if !routes.AssertHttpMethod(ctx, r.AllowedMethods) {
 		return
 	}
+
+	e, _ := assetsFS.ReadDir("/")
+	ctx.Orch.Logger.Debug(fmt.Sprintf("%#v", e))
 
 	catServeAssetsFS(ctx, ctx.R.URL.Path)
 }

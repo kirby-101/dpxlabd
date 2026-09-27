@@ -68,7 +68,7 @@ install:
 	pkg add ${DIST_DIR}/dpxlabd-*.pkg
 
 push-bullshit:
-	 git add . && git commit -m "fix?" && git push
+	 git add . && git commit -m "fix bullshit?" && git push
 
 pull-bullshit:
 	git pull
