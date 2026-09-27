@@ -48,6 +48,11 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	}
 
 	e, _ := assetsFS.ReadDir("content")
+
+	for _, dir := range e {
+		ctx.Orch.Logger.Debug(dir.Name())
+	}
+
 	ctx.Orch.Logger.Debug(ctx.R.URL.Path, fmt.Sprintf("%#v", e))
 
 	// is valid route?
