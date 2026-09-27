@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/kirby-101/dpxlab/config"
 	"github.com/kirby-101/dpxlab/db"
 	"github.com/kirby-101/dpxlab/dpxlabd"
