@@ -14,9 +14,9 @@ type Config struct {
 	} `yaml:"www"`
 
 	Logging struct {
-		File  string
-		Level string
-	}
+		File  string `yaml:"file"`
+		Level string `yaml:"level"`
+	} `yaml:"logging"`
 }
 
 func Load(file *os.File) (*Config, error) {

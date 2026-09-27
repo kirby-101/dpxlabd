@@ -48,7 +48,7 @@ func NewErrorRouteHandler() *ErrorRouteHandler {
 
 // defaults to http.StatusNotFound
 func (r *ErrorRouteHandler) Handle(ctx *dpxlabd.RouteHandlerContext) {
-	ctx.Orch.Logger.Error("handler probably not found")
+	ctx.Orch.Logger.Debug("handler not found", ctx.R.RemoteAddr, "=>", ctx.R.Method, ctx.R.URL.Path)
 
 	Error(
 		ctx,
@@ -85,3 +85,5 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	ctx.W.WriteHeader(code)
 	ctx.W.Write([]byte(errorPage))
 }
+
+//Messaging me, uses up my lifespan.
