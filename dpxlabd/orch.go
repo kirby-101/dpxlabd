@@ -48,7 +48,7 @@ func New(
 	return orch
 }
 
-func (o *Orchestrator) Start() (err error) {
+func (o *Orchestrator) Start() {
 	signal.Notify(
 		o.signals,
 		syscall.SIGINT,
@@ -56,12 +56,10 @@ func (o *Orchestrator) Start() (err error) {
 	)
 
 	o.run()
-
-	return err
 }
 
 func (o *Orchestrator) Stop() {
-	defer o.handlePanic()
+	o.handlePanic()
 	os.Exit(0)
 }
 

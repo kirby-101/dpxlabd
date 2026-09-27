@@ -19,6 +19,16 @@ type Config struct {
 	} `yaml:"logging"`
 }
 
+func LoadDefault() *Config {
+	var cfg = &Config{}
+
+	cfg.WWW.Address = "10.0.0.1:8080"
+	cfg.Logging.File = ""
+	cfg.Logging.Level = ""
+
+	return cfg
+}
+
 func Load(file *os.File) (*Config, error) {
 	data, err := io.ReadAll(file)
 	if err != nil {

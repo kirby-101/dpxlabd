@@ -53,7 +53,7 @@ func setupLogger(filepath, level string) (*logging.Logger, error) {
 		logger.Level = logging.LogFatal
 
 	default:
-		logger.Level = logging.Level(0)
+		logger.Level = logging.Level(1)
 	}
 
 	return logger, nil
@@ -76,6 +76,7 @@ func setupConfig(filepath string) (*config.Config, error) {
 	}
 
 	cfg, err := config.Load(file)
+	defer file.Close()
 
 	if err != nil {
 		return nil, err

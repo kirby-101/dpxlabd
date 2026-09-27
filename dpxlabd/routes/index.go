@@ -26,9 +26,11 @@ func NewIndexRoute() *IndexRoute {
 }
 
 func (r *IndexRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
-	if AssertHttpMethod(ctx, r.AllowedMethods) {
+	if !AssertHttpMethod(ctx, r.AllowedMethods) {
 		return
 	}
+
+	ctx.Orch.Logger.Debug("index handler called")
 
 	CatServeFS(ctx, htmlFS, indexPage)
 }
