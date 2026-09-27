@@ -62,3 +62,5 @@ manifest: plist
 package: manifest stage
 	pkg create -v -M ${STAGE_MANIFEST} -r ${STAGE_DIR} -o ${DIST_DIR} -p ${STAGE_PLIST}
 
+install:
+	pkg add ${DIST_DIR}/dpxlabd-*.pkg
