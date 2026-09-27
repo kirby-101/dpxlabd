@@ -1,7 +1,7 @@
  @font-face {
       font-family: 'ABCDiatypePixel';
-      src: url('assets/ABCDiatype-RegularPixelBeta.woff2') format('woff2'),
-           url('assets/ABCDiatype-RegularPixelBeta.woff') format('woff');
+      src: url('/assets/ABCDiatype-RegularPixelBeta.woff2') format('woff2'),
+           url('/assets/ABCDiatype-RegularPixelBeta.woff') format('woff');
       font-weight: normal;
       font-style: normal;
     }
