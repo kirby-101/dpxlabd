@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 
 	"github.com/kirby-101/dpxlab/config"
@@ -26,7 +25,6 @@ type Orchestrator struct {
 	Logger *logging.Logger
 
 	signals chan os.Signal
-	sync.Mutex
 }
 
 func New(
@@ -51,8 +49,6 @@ func New(
 }
 
 func (o *Orchestrator) Start() (err error) {
-	o.Lock()
-
 	signal.Notify(
 		o.signals,
 		syscall.SIGINT,
@@ -66,12 +62,10 @@ func (o *Orchestrator) Start() (err error) {
 
 func (o *Orchestrator) Stop() {
 	defer o.handlePanic()
-	o.Lock()
-
 	os.Exit(0)
 }
 
-func (o *Orchestrator) run() error {
+func (o *Orchestrator) run() {
 	defer o.Stop()
 
 	// http listener
@@ -83,7 +77,9 @@ func (o *Orchestrator) run() error {
 	for {
 		select {
 		case err := <-c_err:
+			// fatal error
 			o.Logger.Error("HTTP Listener", fmt.Sprintf("%#v", err))
+			o.Stop()
 
 		case <-o.signals:
 			o.Logger.Info("catched SIGINT/SIGTERM")
@@ -94,7 +90,6 @@ func (o *Orchestrator) run() error {
 
 func (o *Orchestrator) handlePanic() {
 	if r := recover(); r != nil {
-		o.Lock()
 		o.Logger.Fatal("PANIC", fmt.Sprintf("%#v", r))
 	}
 }
