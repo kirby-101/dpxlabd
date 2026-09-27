@@ -1,15 +1,11 @@
 package config
 
 import (
-	"errors"
-	"fmt"
 	"io"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
-
-var ErrorFatal = errors.New("fatal error in config.Load()")
 
 type Config struct {
 	WWW struct {
@@ -35,7 +31,7 @@ func LoadDefault() *Config {
 func Load(file *os.File) (*Config, error) {
 	data, err := io.ReadAll(file)
 	if err != nil {
-		return nil, fmt.Errorf("io ReadAll: %s", err.Error())
+		return nil, err
 	}
 
 	var cfg Config
