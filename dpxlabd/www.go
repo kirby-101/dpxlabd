@@ -17,6 +17,8 @@ func (o *Orchestrator) RegisterRoute(route string, handler RouteHandler) {
 
 // session?; log
 func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
+	o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, r.URL.Path)
+
 	var h RouteHandler
 
 	if _h, oke := o.www.routes[r.URL.Path]; oke {
@@ -34,5 +36,4 @@ func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
 		},
 	)
 
-	o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, r.RequestURI)
 }
