@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	basePage  = "base.html"
+	basePage  = "html/base.html"
 	errorPage = "html/error.html"
-	indexPage = "index.html"
+	indexPage = "html/index.html"
 )
 
 //go:embed html/*

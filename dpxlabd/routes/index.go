@@ -30,5 +30,5 @@ func (r *IndexRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 		return
 	}
 
-	CatServeFS(ctx, htmlFS, "index.html")
+	CatServeFS(ctx, htmlFS, indexPage)
 }
