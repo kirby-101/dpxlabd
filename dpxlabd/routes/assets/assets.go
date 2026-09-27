@@ -2,7 +2,9 @@ package assets
 
 import (
 	"io/fs"
+	"mime"
 	"net/http"
+	"path/filepath"
 	"strings"
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
@@ -49,10 +51,16 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 		return
 	}
 
+	var route = ctx.R.URL.Path
+
 	// is valid route?
-	if _, oke := r.AllowedRoutes[ctx.R.URL.Path]; !oke {
+	if _, oke := r.AllowedRoutes[route]; !oke {
 		routes.Error(ctx, http.StatusNotFound)
 		return
+	}
+
+	if ext := mime.TypeByExtension(filepath.Ext(route)); ext != "" {
+		ctx.W.Header().Set("Content-Type", ext)
 	}
 
 	catServeAssetsFS(ctx, ctx.R.URL.Path)
