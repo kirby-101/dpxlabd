@@ -17,6 +17,7 @@ type AssetsRoute struct {
 func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
 	var r = &AssetsRoute{
 		AllowedMethods: []string{http.MethodGet},
+		AllowedRoutes:  map[string]bool{},
 	}
 
 	fs.WalkDir(
