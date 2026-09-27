@@ -1,0 +1,26 @@
+name: go-lint
+
+on:
+  push:
+    branches: [ "prod", "devel" ]
+  pull_request:
+    branches: [ "prod", "devel" ]
+
+permissions:
+  contents: read
+  pull-requests: read
+  
+jobs:
+  lint:
+    name: "lint ${{ github.ref }}"
+    runs-on: ubuntu-slim
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-go@v7
+      with:
+        go-version-file: 'go.mod'
+        cache: true
+
+    - uses: golangci/golangci-lint-action@v9
+      with:
+        version: "latest"

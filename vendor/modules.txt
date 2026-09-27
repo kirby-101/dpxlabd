@@ -1,0 +1,6 @@
+# github.com/kirby-101/logging-go v0.0.0-20260926204154-39f6c0782f61
+## explicit; go 1.24.6
+github.com/kirby-101/logging-go
+# gopkg.in/yaml.v3 v3.0.1
+## explicit
+gopkg.in/yaml.v3

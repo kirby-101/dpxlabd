@@ -1,0 +1,5 @@
+package adm
+
+/*
+ * /adm
+ */
