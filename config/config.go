@@ -12,6 +12,11 @@ type Config struct {
 	WWW struct {
 		Address string `yaml:"addr"`
 	} `yaml:"www"`
+
+	Logging struct {
+		File  string
+		Level string
+	}
 }
 
 func Load(file *os.File) (*Config, error) {

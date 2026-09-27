@@ -50,7 +50,7 @@ func New(
 	return orch
 }
 
-func (o *Orchestrator) Start() error {
+func (o *Orchestrator) Start() (err error) {
 	o.Lock()
 
 	signal.Notify(
@@ -59,9 +59,11 @@ func (o *Orchestrator) Start() error {
 		syscall.SIGTERM,
 	)
 
-	// 	o.StartWWW()
+	//o.StartWWW()
 
-	return o.run()
+	o.run()
+
+	return err
 }
 
 func (o *Orchestrator) Stop() {
@@ -71,7 +73,7 @@ func (o *Orchestrator) Stop() {
 	os.Exit(0)
 }
 
-func (o *Orchestrator) run() error {
+func (o *Orchestrator) run() {
 	defer o.Stop()
 
 	for {
@@ -80,7 +82,7 @@ func (o *Orchestrator) run() error {
 
 		case <-o.signals:
 			o.Logger.Info("catched SIGINT/SIGTERM")
-			return nil
+			return
 
 		}
 	}
