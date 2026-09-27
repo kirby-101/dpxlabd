@@ -56,7 +56,5 @@ func main() {
 		routes.NewErrorRouteHandler(),
 	)
 
-	if err := orch.Start(); err != nil {
-		logger.Fatal(fmt.Sprintf("%#v", err))
-	}
+	orch.Start()
 }
