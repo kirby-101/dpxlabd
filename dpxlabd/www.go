@@ -5,6 +5,7 @@ import (
 )
 
 func (o *Orchestrator) StartWWW() error {
+	o.Logger.Info("Listening on", o.cfg.WWW.Address)
 	o.www.mux.HandleFunc("/", o.HandleRoute)
 	return http.ListenAndServe(o.cfg.WWW.Address, o.www.mux)
 }
@@ -32,4 +33,6 @@ func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
 			Orch: o,
 		},
 	)
+
+	o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, r.RequestURI)
 }
