@@ -1,7 +1,7 @@
 # https://github.com/kirby-101/dpxlabd.git
 
 VERSION			!= git describe --tags --always --dirty
-GO				= /usr/local/bin/go126
+GO				!= which go
 GO_ENV			= CGO_ENABLED=0
 GO_FLAGS		:= -trimpath -ldflags "-s -w -X main.Version=${VERSION}"
 
@@ -19,7 +19,9 @@ STAGE_RC		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/rc.d/dpxlabd
 STAGE_CFG		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/dpxlabd.conf
 
 
-.PHONY: clean test build stage plist manifest package
+.PHONY: all
+
+all: clean test build stage plist manifest package
 
 clean:
 	rm -rf ${DIST_DIR}/*
