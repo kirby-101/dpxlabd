@@ -14,14 +14,11 @@ type AssetsRoute struct {
 	AllowedMethods []string
 }
 
-func NewAssetsRoute() *AssetsRoute {
-
-	return &AssetsRoute{
+func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
+	var r = &AssetsRoute{
 		AllowedMethods: []string{http.MethodGet},
 	}
-}
 
-func (r *AssetsRoute) RegisterAssetsRoutes(routes map[string]dpxlabd.RouteHandler) {
 	fs.WalkDir(
 		assetsFS,
 		"content",
@@ -41,6 +38,8 @@ func (r *AssetsRoute) RegisterAssetsRoutes(routes map[string]dpxlabd.RouteHandle
 			return nil
 		},
 	)
+
+	return r
 }
 
 func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {

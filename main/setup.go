@@ -13,11 +13,14 @@ import (
 )
 
 func setupRoutes() map[string]dpxlabd.RouteHandler {
-	return map[string]dpxlabd.RouteHandler{
-		"/":       routes.NewIndexRoute(),
-		"/assets": assets.NewAssetsRoute(),
-		"/md":     md.NewMarkdownRoute(),
+	var routes = map[string]dpxlabd.RouteHandler{
+		"/":   routes.NewIndexRoute(),
+		"/md": md.NewMarkdownRoute(),
 	}
+
+	routes["/assets"] = assets.NewAssetsRoute(routes)
+
+	return routes
 }
 
 func setupLogger(filepath, level string) (*logging.Logger, error) {
