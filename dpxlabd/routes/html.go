@@ -9,7 +9,7 @@ import (
 
 const (
 	basePage  = "base.html"
-	errorPage = "error.html"
+	errorPage = "html/error.html"
 	indexPage = "index.html"
 )
 
@@ -43,70 +43,34 @@ func RenderErrorHTML(errCode, errMesg string) (string, error) {
 }
 
 /*
-// returns rendered html, error
-func renderHTMLTemplate(templateFilePath string, templateData any) (string, error) {
-	t, err := template.New(filepath.Base(templateFilePath)).
-		Funcs(template.FuncMap{
-			"safeHTML": func(s template.HTML) template.HTML { return s },
-		}).
-		ParseFiles(templateFilePath)
-	if err != nil {
-		return "", err
-	}
-
-	var buf = &bytes.Buffer{}
-	if err := t.ExecuteTemplate(buf, filepath.Base(templateFilePath), templateData); err != nil {
-		return "", err
-	}
-
-	return buf.String(), nil
-}
-
-func renderMarkdownToHTML(_markdown []byte) string {
-	var (
-		p   = parser.New()
-		doc = p.Parse(_markdown)
-		r   = html.NewRenderer(
-			html.RendererOptions{
-				Flags: html.CommonFlags,
-			},
-		)
-	)
-
-	return string(markdown.Render(doc, r))
-}
-
-// returns map[urlPath]fsPath
-func genFsMap(directory, urlPrefix string) (map[string]string, error) {
-	var pathMap = map[string]string{}
-
-	// walk & store
-	var walkFunc = func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return fmt.Errorf("walkFunc lastErr: %s: %s", path, err.Error())
-		}
-
-		if !info.IsDir() {
-			// relative path
-			relativePath, err := filepath.Rel(directory, path)
-			if err != nil {
-				return fmt.Errorf("walkFunc curErr: %s: %s", path, err.Error())
-			}
-
-			uriPath := urlPrefix + "/" + relativePath
-			pathMap[uriPath] = path
-		}
-
-		return nil
-	}
-
-	if err := filepath.Walk(
-		directory,
-		walkFunc,
-	); err != nil {
-		return nil, err
-	}
-
-	return pathMap, nil
-}
+80
+[2026-09-27T04:30:56.810Z]-[error]-[github.com/kirby-101/dpxlab/dpxlabd/routes.(*ErrorRouteHandler).Handle] handler probably not found
+2026/09/27 04:30:56 http: panic serving 10.0.0.1:52837: template: pattern matches no files: `error.html`
+goroutine 19 [running]:
+net/http.(*conn).serve.func1()
+        net/http/server.go:1897 +0xbd
+panic({0x821280?, 0x2302ea094190?})
+        runtime/panic.go:860 +0x13a
+html/template.Must(...)
+        html/template/template.go:368
+github.com/kirby-101/dpxlab/dpxlabd/routes.RenderHTML({0x89c9aa, 0xa}, {0x83f280, 0x2302ea0b8100})
+        github.com/kirby-101/dpxlab/dpxlabd/routes/html.go:21 +0x131
+github.com/kirby-101/dpxlab/dpxlabd/routes.RenderErrorHTML(...)
+        github.com/kirby-101/dpxlab/dpxlabd/routes/html.go:33
+github.com/kirby-101/dpxlab/dpxlabd/routes.Error(0x2302ea0b80e0, 0x194)
+        github.com/kirby-101/dpxlab/dpxlabd/routes/errors.go:75 +0x185
+github.com/kirby-101/dpxlab/dpxlabd/routes.(*ErrorRouteHandler).Handle(0x0?, 0x2302ea0b80e0)
+        github.com/kirby-101/dpxlab/dpxlabd/routes/errors.go:53 +0x54
+github.com/kirby-101/dpxlab/dpxlabd.(*Orchestrator).HandleRoute(0x2302e9fba500, {0x8ec540, 0x2302ea09a1e0}, 0x2302ea0be000)
+        github.com/kirby-101/dpxlab/dpxlabd/www.go:29 +0xfa
+net/http.HandlerFunc.ServeHTTP(0x2302e9fe40c0?, {0x8ec540?, 0x2302ea09a1e0?}, 0x6f9096?)
+        net/http/server.go:2286 +0x29
+net/http.(*ServeMux).ServeHTTP(0x47ff99?, {0x8ec540, 0x2302ea09a1e0}, 0x2302ea0be000)
+        net/http/server.go:2828 +0x1c7
+net/http.serverHandler.ServeHTTP({0x2302ea0b6080?}, {0x8ec540?, 0x2302ea09a1e0?}, 0x6?)
+        net/http/server.go:3311 +0x8e
+net/http.(*conn).serve(0x2302ea0ba090, {0x8ecfa8, 0x2302ea09c240})
+        net/http/server.go:2067 +0x690
+created by net/http.(*Server).Serve in goroutine 18
+        net/http/server.go:3464 +0x485
 */
