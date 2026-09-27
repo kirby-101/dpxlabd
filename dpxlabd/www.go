@@ -1,7 +1,6 @@
 package dpxlabd
 
 import (
-	"fmt"
 	"net/http"
 )
 
