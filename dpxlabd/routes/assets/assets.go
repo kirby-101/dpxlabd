@@ -1,7 +1,6 @@
 package assets
 
 import (
-	"fmt"
 	"io/fs"
 	"net/http"
 	"strings"
@@ -11,6 +10,7 @@ import (
 )
 
 type AssetsRoute struct {
+	AllowedRoutes  map[string]bool
 	AllowedMethods []string
 }
 
@@ -34,6 +34,7 @@ func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
 			// content/asset.file => /assets/asset.file
 			var routerPath = "/assets/" + strings.TrimPrefix(path, "content/")
 			routes[routerPath] = r
+			r.AllowedRoutes[routerPath] = true
 
 			return nil
 		},
@@ -47,15 +48,11 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 		return
 	}
 
-	e, _ := assetsFS.ReadDir("content")
-
-	for _, dir := range e {
-		ctx.Orch.Logger.Debug(dir.Name())
-	}
-
-	ctx.Orch.Logger.Debug(ctx.R.URL.Path, fmt.Sprintf("%#v", e))
-
 	// is valid route?
+	if _, oke := r.AllowedRoutes[ctx.R.URL.Path]; !oke {
+		routes.Error(ctx, http.StatusNotFound)
+		return
+	}
 
 	catServeAssetsFS(ctx, ctx.R.URL.Path)
 }
