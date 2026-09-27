@@ -70,5 +70,5 @@ install:
 push-bullshit:
 	 git add . && git commit -m "fix?" && git push
 
-pull-bullshit:
-	git pull && make clean build && .dist/dpxlabd
+pull-bullshit: clean build
+	git pull && .dist/dpxlabd
