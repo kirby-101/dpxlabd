@@ -32,9 +32,10 @@ func RenderHTML(targetPage string, data any) (string, error) {
 			).ParseFS(htmlFS, targetPage),
 		)
 		buf = &bytes.Buffer{}
+		err = t.Execute(buf, data)
 	)
 
-	return buf.String(), t.Execute(buf, data)
+	return buf.String(), err
 }
 
 func RenderErrorHTML(errCode, errMesg string) (string, error) {
