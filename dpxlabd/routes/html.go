@@ -13,7 +13,7 @@ const (
 	htmlContentType = "text/html; charset=utf-8"
 
 	basePage  = "html/base.html"
-	errorPage = "html/error.html"
+	errorPage = "error.html"
 	indexPage = "html/index.html"
 )
 
