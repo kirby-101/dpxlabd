@@ -31,5 +31,5 @@ func (r *IndexRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	}
 
 	ctx.W.Header().Set("Content-Type", htmlContentType)
-	CatServeFS(ctx, htmlFS, indexPage)
+	CatServeFS(ctx, htmlFS, IndexPagePath)
 }

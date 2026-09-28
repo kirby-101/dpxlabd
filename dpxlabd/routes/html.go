@@ -12,9 +12,9 @@ import (
 const (
 	htmlContentType = "text/html; charset=utf-8"
 
-	basePage  = "html/base.html"
-	errorPage = "html/error.html"
-	indexPage = "html/index.html"
+	BasePagePath  = "html/base.html"
+	ErrorPagePath = "html/error.html"
+	IndexPagePath = "html/index.html"
 )
 
 //go:embed html/*
@@ -24,7 +24,7 @@ func CatServeHTMLFS(ctx *dpxlabd.RouteHandlerContext, filePath string) {
 	//ctx.W.Header().Set("Content-Type", htmlContentType)
 }
 
-func RenderHTML(targetPage string, data any) (string, error) {
+func RenderHTML(targetPage string, data any) ([]byte, error) {
 	var (
 		t = template.Must(
 			template.New(
@@ -35,12 +35,12 @@ func RenderHTML(targetPage string, data any) (string, error) {
 		err = t.Execute(buf, data)
 	)
 
-	return buf.String(), err
+	return buf.Bytes(), err
 }
 
-func RenderErrorHTML(errCode, errMesg string) (string, error) {
+func RenderErrorHTML(errCode, errMesg string) ([]byte, error) {
 	return RenderHTML(
-		errorPage,
+		ErrorPagePath,
 		struct {
 			ErrorCode    string
 			ErrorMessage string

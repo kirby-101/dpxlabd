@@ -1,3 +1,5 @@
+github.com/gomarkdown/markdown v0.0.0-20260923180740-94fc73f6b1a3 h1:tTy9EC3uLxFeMrYCOf+T4cS86imMT6kGMl7htiU907o=
+github.com/gomarkdown/markdown v0.0.0-20260923180740-94fc73f6b1a3/go.mod h1:JDGcbDT52eL4fju3sZ4TeHGsQwhG9nbDV21aMyhwPoA=
 github.com/kirby-101/logging-go v0.0.0-20260926204154-39f6c0782f61 h1:ZjZJr+2ON142o7wyodg4umTpiVF6Fbv2s79/vy3J5RE=
 github.com/kirby-101/logging-go v0.0.0-20260926204154-39f6c0782f61/go.mod h1:/mn/zNuf0S7clEto2qOnw8/Q2ZcG84CmKl0+qKSZcIM=
 github.com/lib/pq v1.12.3 h1:tTWxr2YLKwIvK90ZXEw8GP7UFHtcbTtty8zsI+YjrfQ=

@@ -70,7 +70,7 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	}
 
 	// render error page
-	var errorPage string
+	var errorPage []byte
 
 	s, err := RenderErrorHTML(
 		errorCode,
@@ -78,7 +78,7 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	)
 	if err != nil {
 		ctx.Orch.Logger.Error(err.Error())
-		errorPage = fmt.Sprintf("%s: %s", errorCode, errorMessage)
+		errorPage = fmt.Appendf(errorPage, "%s: %s", errorCode, errorMessage)
 
 	} else {
 		errorPage = s
@@ -87,5 +87,5 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	// Final
 	ctx.W.Header().Set("Content-Type", "text/html; charset=utf-8")
 	ctx.W.WriteHeader(code)
-	_, _ = ctx.W.Write([]byte(errorPage))
+	_, _ = ctx.W.Write(errorPage)
 }
