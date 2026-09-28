@@ -86,6 +86,6 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 
 	// Final
 	ctx.W.Header().Set("Content-Type", "text/html; charset=utf-8")
-	ctx.W.Write([]byte(errorPage))
 	ctx.W.WriteHeader(code)
+	_, _ = ctx.W.Write([]byte(errorPage))
 }
