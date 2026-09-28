@@ -56,7 +56,7 @@ func (r *ErrorRouteHandler) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	)
 }
 
-// ctx, http.Status*
+// Error(ctx, http.Status*)
 func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	var (
 		errorCode    = strconv.Itoa(code)
