@@ -70,13 +70,17 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	}
 
 	// render error page
-	var errorPage = fmt.Sprintf("%s: %s", errorCode, errorMessage)
+	var errorPage string
 
 	s, err := RenderErrorHTML(
 		errorCode,
 		errorMessage,
 	)
-	if err == nil {
+	if err != nil {
+		ctx.Orch.Logger.Error(err.Error())
+		errorPage = fmt.Sprintf("%s: %s", errorCode, errorMessage)
+
+	} else {
 		errorPage = s
 	}
 
