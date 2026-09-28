@@ -85,5 +85,3 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	ctx.W.WriteHeader(code)
 	ctx.W.Write([]byte(errorPage))
 }
-
-//Messaging me, uses up my lifespan.

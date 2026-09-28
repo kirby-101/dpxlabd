@@ -7,31 +7,27 @@
   <meta property="og:description" content="kirby's infra">
   <meta property="og:url" content="https://dpxlab.de/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 
-  <style>
-  </style>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/base.css">
 </head>
 <body>
+  <canvas id="matrix"></canvas>
 
-<canvas id="matrix"></canvas>
+  <div class="login-box">
+    <h1>Login</h1>
+    <form method="post" action="/login">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" />
 
-<div class="login-box">
-  <h1>Login</h1>
-  <form method="post" action="/login">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" />
 
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" />
+      <button type="submit">Login</button>
+    </form>
+    <a class="back-link" href="index.html">← Zurück</a>
+  </div>
 
-    <button type="submit">Login</button>
-  </form>
-  <a class="back-link" href="index.html">← Zurück</a>
-</div>
-
-<script>
-</script>
-
+  <script src="/assets/matrix.js"></script>
 </body>
 </html>

@@ -12,8 +12,8 @@ import (
 )
 
 type AssetsRoute struct {
-	AllowedRoutes  map[string]bool
 	AllowedMethods []string
+	AllowedRoutes  map[string]bool
 }
 
 func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
@@ -22,7 +22,7 @@ func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
 		AllowedRoutes:  map[string]bool{},
 	}
 
-	fs.WalkDir(
+	err := fs.WalkDir(
 		assetsFS,
 		"content",
 		func(path string, dir fs.DirEntry, err error) error {
@@ -36,12 +36,16 @@ func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
 
 			// content/asset.file => /assets/asset.file
 			var routerPath = "/assets/" + strings.TrimPrefix(path, "content/")
+
 			routes[routerPath] = r
 			r.AllowedRoutes[routerPath] = true
 
 			return nil
 		},
 	)
+	if err != nil {
+		panic(err)
+	}
 
 	return r
 }
@@ -56,6 +60,7 @@ func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	// is valid route?
 	if _, oke := r.AllowedRoutes[route]; !oke {
 		routes.Error(ctx, http.StatusNotFound)
+
 		return
 	}
 

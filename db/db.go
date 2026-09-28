@@ -1,8 +1,9 @@
 package db
 
 import (
-	//"database/sql"
-	//_ "github.com/mattn/go-sqlite3"
+	_ "database/sql"
+	_ "github.com/lib/pq"
+
 	"sync"
 )
 
@@ -19,6 +20,35 @@ import (
 type Database struct {
 	sync.Mutex
 }
+
+/*
+cfg := pq.Config{
+	Host:           "localhost",
+	Port:           5432,
+	User:           "pqgo",
+	ConnectTimeout: 5 * time.Second,
+}
+// Or: create a new Config from the defaults, environment, and DSN.
+// cfg, err := pq.NewConfig("host=postgres dbname=pqgo")
+// if err != nil {
+//     log.Fatal(err)
+// }
+
+c, err := pq.NewConnectorConfig(cfg)
+if err != nil {
+    log.Fatal(err)
+}
+
+// Create connection pool.
+db := sql.OpenDB(c)
+defer db.Close()
+
+// Make sure it works.
+err = db.Ping()
+if err != nil {
+    log.Fatal(err)
+}
+*/
 
 /*
 func OpenDatabase(file string) (*Database, error) {

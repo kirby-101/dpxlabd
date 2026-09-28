@@ -7,6 +7,8 @@ import (
 	"github.com/kirby-101/dpxlab/dpxlabd/routes"
 )
 
+const markdownContentType = "text/html; charset=utf-8"
+
 //go:embed content/*
 var markdownFS embed.FS
 

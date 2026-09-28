@@ -13,6 +13,7 @@ func CatServeFS(ctx *dpxlabd.RouteHandlerContext, fs embed.FS, filePath string) 
 	buf, err := fs.ReadFile(filePath)
 	if err != nil {
 		Error(ctx, http.StatusInternalServerError)
+
 		return
 	}
 
@@ -24,6 +25,7 @@ func CatServeFS(ctx *dpxlabd.RouteHandlerContext, fs embed.FS, filePath string) 
 func AssertHttpMethod(ctx *dpxlabd.RouteHandlerContext, whitelist []string) bool {
 	if !slices.Contains(whitelist, ctx.R.Method) {
 		Error(ctx, http.StatusMethodNotAllowed)
+
 		return false
 	}
 

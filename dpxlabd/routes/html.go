@@ -5,9 +5,13 @@ import (
 	"embed"
 	"html/template"
 	"path/filepath"
+
+	"github.com/kirby-101/dpxlab/dpxlabd"
 )
 
 const (
+	htmlContentType = "text/html; charset=utf-8"
+
 	basePage  = "html/base.html"
 	errorPage = "html/error.html"
 	indexPage = "html/index.html"
@@ -16,12 +20,16 @@ const (
 //go:embed html/*
 var htmlFS embed.FS
 
-func RenderHTML(target string, data any) (string, error) {
+func CatServeHTMLFS(ctx *dpxlabd.RouteHandlerContext, filePath string) {
+	//ctx.W.Header().Set("Content-Type", htmlContentType)
+}
+
+func RenderHTML(targetPage string, data any) (string, error) {
 	var (
 		t = template.Must(
 			template.New(
-				filepath.Base(target),
-			).ParseFS(htmlFS, target),
+				filepath.Base(targetPage),
+			).ParseFiles(targetPage),
 		)
 		buf = &bytes.Buffer{}
 	)
