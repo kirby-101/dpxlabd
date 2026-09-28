@@ -15,11 +15,11 @@ import (
 
 func setupRoutes() map[string]dpxlabd.RouteHandler {
 	var routes = map[string]dpxlabd.RouteHandler{
-		"/":   routes.NewIndexRoute(),
-		"/md": md.NewMarkdownRoute(),
+		"/": routes.NewIndexRoute(),
 	}
 
 	routes["/assets"] = assets.NewAssetsRoute(routes)
+	routes["/md"] = md.NewMarkdownRoute(routes)
 
 	return routes
 }
