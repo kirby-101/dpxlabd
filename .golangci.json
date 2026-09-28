@@ -1,0 +1,50 @@
+{
+  "version": "2",
+
+  "linters": {
+    "default": "all",
+    "disable": [
+      "depguard",
+      "exhaustruct",
+      "gochecknoglobals",
+      "gochecknoinits",
+      "godot",
+      "ireturn",
+      "tagliatelle",
+      "varnamelen",
+      "wrapcheck",
+      "revive",
+      "errcheck",
+    ],
+    
+    "settings": {
+      "gocyclo": {
+        "min-complexity": 15,
+      },
+      
+      "misspell": {
+        "locale": "US",
+      },
+      
+      "nestif": {
+        "min-complexity": 4,
+      },
+    },
+  },
+
+  "formatters": {},
+
+  "output": {
+    "show-stats": true,
+    "sort-order": [
+      "file",
+      "linter",
+    ],
+  },
+
+  "run": {
+    "timeout": "5m",
+    "tests": false,
+  },
+  
+}

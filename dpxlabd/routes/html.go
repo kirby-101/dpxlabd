@@ -13,7 +13,7 @@ const (
 	htmlContentType = "text/html; charset=utf-8"
 
 	basePage  = "html/base.html"
-	errorPage = "error.html"
+	errorPage = "html/error.html"
 	indexPage = "html/index.html"
 )
 
@@ -29,7 +29,7 @@ func RenderHTML(targetPage string, data any) (string, error) {
 		t = template.Must(
 			template.New(
 				filepath.Base(targetPage),
-			).ParseFiles(targetPage),
+			).ParseFS(htmlFS, targetPage),
 		)
 		buf = &bytes.Buffer{}
 	)
