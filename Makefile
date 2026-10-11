@@ -2,7 +2,7 @@
 
 VERSION			!= git describe --tags --always --dirty
 GO				!= which go
-GO_ENV			= CGO_ENABLED=0
+GO_ENV			= CGO_ENABLED=0  GOOS=freebsd GOARCH=amd64
 GO_FLAGS		:= -trimpath -ldflags "-s -w -X main.Version=${VERSION}"
 
 DIST_DIR		= ./.dist

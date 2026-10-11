@@ -15,7 +15,7 @@ type MarkdownRoute struct {
 }
 
 // ! convert md to html
-func NewMarkdownRoute(routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
+func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 	var r = &MarkdownRoute{
 		AllowedMethods: []string{http.MethodGet},
 		AllowedRoutes:  map[string][]byte{},
@@ -33,11 +33,23 @@ func NewMarkdownRoute(routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 				return nil
 			}
 
+			// Read Markdown File
+			md_data, err := markdownFS.ReadFile(path)
+			if err != nil {
+				return err
+			}
+
+			// Convert Markdown to HTML & Execute BasePage Template
+			html_data, err := markdown2HTML(md_data)
+			if err != nil {
+				return err
+			}
+
 			// content/asset.file => /assets/asset.file
 			var routerPath = "/assets/" + strings.TrimPrefix(path, "content/")
 
-			routes[routerPath] = r
-			r.AllowedRoutes[routerPath] = []byte{} //! content
+			_routes[routerPath] = r
+			r.AllowedRoutes[routerPath] = html_data
 
 			return nil
 		},
@@ -64,6 +76,11 @@ func (r *MarkdownRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	}
 
 	// serve markdown
+	site, oke := r.AllowedRoutes[route]
+	if !oke {
+		routes.Error(ctx, http.StatusInternalServerError)
+	}
 
-	//catServeMarkdownFS(ctx, ctx.R.URL.Path)
+	ctx.W.Header().Set("Content-Type", routes.HTMLContentType)
+	ctx.W.Write(site)
 }

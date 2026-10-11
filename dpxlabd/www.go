@@ -27,10 +27,10 @@ func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
 	if _h, oke := o.www.routes[r.URL.Path]; oke {
 		// 200
 		h = _h
-		o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, "using handler", r.URL.Path)
+		o.Logger.Info(r.RemoteAddr, trunc(r.UserAgent()), r.Method, r.URL.Path)
 	} else {
 		// 404
-		o.Logger.Debug(r.RemoteAddr, trunc(r.UserAgent()), "=>", r.Method, "unknown handler", r.URL.Path)
+		o.Logger.Debug(r.RemoteAddr, trunc(r.UserAgent()), "unknown handler", r.Method, r.URL.Path)
 	}
 
 	h.Handle(

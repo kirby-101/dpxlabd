@@ -51,6 +51,7 @@ func New(
 func (o *Orchestrator) Start() {
 	signal.Notify(
 		o.signals,
+		syscall.SIGINFO,
 		syscall.SIGINT,
 		syscall.SIGTERM,
 	)
@@ -62,6 +63,8 @@ func (o *Orchestrator) Stop() {
 	o.handlePanic()
 	os.Exit(0)
 }
+
+func (o *Orchestrator) Status() {}
 
 func (o *Orchestrator) run() {
 	defer o.Stop()
@@ -79,9 +82,8 @@ func (o *Orchestrator) run() {
 			o.Logger.Error("HTTP Listener", fmt.Sprintf("%#v", err))
 			o.Stop()
 
-		case <-o.signals:
-			o.Logger.Info("catched SIGINT/SIGTERM")
-			o.Stop()
+		case sig := <-o.signals:
+			o.handleSignals(sig)
 		}
 	}
 }
@@ -89,5 +91,16 @@ func (o *Orchestrator) run() {
 func (o *Orchestrator) handlePanic() {
 	if r := recover(); r != nil {
 		o.Logger.Fatal("PANIC", fmt.Sprintf("%#v", r))
+	}
+}
+
+func (o *Orchestrator) handleSignals(sig os.Signal) {
+	switch sig {
+	case syscall.SIGINFO:
+		// Status
+
+	case syscall.SIGINT, syscall.SIGTERM:
+		o.Logger.Info("catched SIGINT/SIGTERM")
+		o.Stop()
 	}
 }

@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	htmlContentType = "text/html; charset=utf-8"
+	HTMLContentType = "text/html; charset=utf-8"
 
 	BasePagePath  = "html/base.html"
 	ErrorPagePath = "html/error.html"

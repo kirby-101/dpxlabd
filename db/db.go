@@ -22,32 +22,20 @@ type Database struct {
 }
 
 /*
-cfg := pq.Config{
-	Host:           "localhost",
-	Port:           5432,
-	User:           "pqgo",
-	ConnectTimeout: 5 * time.Second,
-}
-// Or: create a new Config from the defaults, environment, and DSN.
-// cfg, err := pq.NewConfig("host=postgres dbname=pqgo")
-// if err != nil {
-//     log.Fatal(err)
-// }
+   // Or as URL: postgresql://localhost/pqgo
+   db, err := sql.Open("postgres", "host=localhost dbname=pqgo connect_timeout=5")
+   if err != nil {
+       log.Fatal(err)
+   }
+   defer db.Close()
 
-c, err := pq.NewConnectorConfig(cfg)
-if err != nil {
-    log.Fatal(err)
-}
-
-// Create connection pool.
-db := sql.OpenDB(c)
-defer db.Close()
-
-// Make sure it works.
-err = db.Ping()
-if err != nil {
-    log.Fatal(err)
-}
+   // db.Open() only creates a connection pool, and doesn't actually establish
+   // a connection. To ensure the connection works you need to do *something*
+   // with a connection.
+   err = db.Ping()
+   if err != nil {
+       log.Fatal(err)
+   }
 */
 
 /*

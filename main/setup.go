@@ -8,20 +8,22 @@ import (
 	"github.com/kirby-101/dpxlab/db"
 	"github.com/kirby-101/dpxlab/dpxlabd"
 	"github.com/kirby-101/dpxlab/dpxlabd/routes"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm"
 	"github.com/kirby-101/dpxlab/dpxlabd/routes/assets"
 	"github.com/kirby-101/dpxlab/dpxlabd/routes/md"
 	"github.com/kirby-101/logging-go"
 )
 
 func setupRoutes() map[string]dpxlabd.RouteHandler {
-	var routes = map[string]dpxlabd.RouteHandler{
+	var _routes = map[string]dpxlabd.RouteHandler{
 		"/": routes.NewIndexRoute(),
 	}
 
-	routes["/assets"] = assets.NewAssetsRoute(routes)
-	routes["/md"] = md.NewMarkdownRoute(routes)
+	_routes["/adm"] = adm.NewAdmRoute(_routes)
+	_routes["/assets"] = assets.NewAssetsRoute(_routes)
+	_routes["/md"] = md.NewMarkdownRoute(_routes)
 
-	return routes
+	return _routes
 }
 
 func setupLogger(filepath, level string) (*logging.Logger, error) {
