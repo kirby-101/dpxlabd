@@ -2,18 +2,15 @@ package store
 
 /*
  * Cloudflare R2: S3 Bucket
- => pkgsched storage
- => "https://pkg.dpxlab.de/${ABI}/latest" -> MANIFEST
- => html/css schmücken?
-
-https://docs.cloud.google.com/storage/docs/samples/storage-transfer-manager-download-chunks-concurrently
+ => sched storage
+ => "pkg.dpxlab.de/${ABI}-LATEST/" -> symlink
+ ==> "pkg.dpxlab.de/${osreldate}_${portscommit}/" -> REPO
 */
 
 import (
 	"context"
 
 	"cloud.google.com/go/storage"
-	_ "cloud.google.com/go/storage/transfermanager"
 	"google.golang.org/api/option"
 )
 

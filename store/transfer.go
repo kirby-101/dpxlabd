@@ -1,23 +1,20 @@
 package store
 
-import "bytes"
+import (
+	"context"
+	"fmt"
+	"io"
+	"os"
 
-// als buffer? (bufio, bytes.Buffer)
-func (s *Store) OpenObject(name string) (any, error) {}
+	"cloud.google.com/go/storage"
+	"cloud.google.com/go/storage/transfermanager"
+)
 
-func (s *Store) CreateObject(name string, buf *bytes.Buffer) error {}
-
-func (s *Store) RenameObject(name, newname string) error {}
-
-func (s *Store) RemoveObject(name string) {}
-
-func (s *Store) ReadObject(name string) (*bytes.Buffer, error) {}
-
-func (s *Store) WriteObject(name string, buf *bytes.Buffer) error {}
+func TransferFileFromURL() {}
 
 /*
-Create creates or truncates the named file. If the file already exists, it is truncated. If the file does not exist, it is created with mode 0o666 (before umask). If successful, methods on the returned File can be used for I/O; the associated file descriptor has mode O_RDWR. The directory containing the file must already exist. If there is an error, it will be of type *PathError.
-*/
+ * https://docs.cloud.google.com/storage/docs/samples/storage-transfer-manager-download-chunks-concurrently
+ */
 
 // downloadChunksConcurrently downloads a single file in chunks, concurrently in a process pool.
 func downloadChunksConcurrently(w io.Writer, bucketName, blobName, filename string) error {
