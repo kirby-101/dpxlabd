@@ -1,0 +1,29 @@
+version: 2
+updates:
+    - package-ecosystem: "gomod"
+      directory: "/"
+      target-branch: "prod"
+      schedule:
+          interval: "daily"
+      open-pull-requests-limit: 10
+      labels:
+          - "dependencies"
+          - "go"
+      commit-message:
+          prefix: "chore(deps)"
+      groups:
+          go-dependencies:
+              patterns:
+                  - "*"
+
+    # Workflows
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      target-branch: "prod"
+      schedule:
+          interval: "daily"
+      labels:
+          - "dependencies"
+          - "github-actions"
+      commit-message:
+          prefix: "chore(ci)"

@@ -14,7 +14,6 @@ type MarkdownRoute struct {
 	AllowedRoutes  map[string][]byte
 }
 
-// ! convert md to html
 func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 	var r = &MarkdownRoute{
 		AllowedMethods: []string{http.MethodGet},
@@ -57,6 +56,8 @@ func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 	if err != nil {
 		panic(err)
 	}
+
+	//! generate index page
 
 	return r
 }
