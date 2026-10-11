@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/storage v1.69.0
 	github.com/gomarkdown/markdown v0.0.0-20260923180740-94fc73f6b1a3
 	github.com/google/uuid v1.6.0
+	github.com/hetznercloud/hcloud-go/v2 v2.52.0
 	github.com/kirby-101/logging-go v0.0.0-20260926204154-39f6c0782f61
 	github.com/lib/pq v1.12.3
 	google.golang.org/api v0.288.0
@@ -23,6 +24,7 @@ require (
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.35.0 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.57.0 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.57.0 // indirect
+	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2 // indirect
 	github.com/envoyproxy/go-control-plane/envoy v1.37.0 // indirect
@@ -34,7 +36,12 @@ require (
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.17 // indirect
 	github.com/googleapis/gax-go/v2 v2.26.2 // indirect
+	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
+	github.com/prometheus/client_golang v1.24.1 // indirect
+	github.com/prometheus/client_model v0.6.2 // indirect
+	github.com/prometheus/common v0.70.1 // indirect
+	github.com/prometheus/procfs v0.21.1 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.7.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/detectors/gcp v1.45.0 // indirect

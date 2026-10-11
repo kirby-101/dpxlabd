@@ -2,6 +2,8 @@ package dpxlabd
 
 import _ "github.com/hetznercloud/hcloud-go/v2/hcloud"
 
+/* https://pkg.go.dev/github.com/hetznercloud/hcloud-go/v2/hcloud */
+
 /*
 
 pkg.dpxlab.de/osreldate_portscommit
