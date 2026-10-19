@@ -17,7 +17,7 @@ func ObfuscateRoutes[T any](routes map[string]T) map[string]T {
 		var (
 			sum         = sha256.Sum256([]byte(route))
 			obfus_route = "/" + base64.RawURLEncoding.EncodeToString(
-				sum[:len(route)], //?
+				sum[:8], //?
 			)
 		)
 

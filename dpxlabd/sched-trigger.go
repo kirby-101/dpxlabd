@@ -1,5 +1,12 @@
 package dpxlabd
 
+type SchedTrigger interface {
+	//JobName string
+	//details zum Job
+}
+
+func (c *SchedEngineController) RegisterTrigger() {}
+
 // trigger cooldown?
 
 /*
@@ -31,5 +38,4 @@ func (b *Builder) handleTrigger(t *TriggerSignal) {
 		go b.RunJob(t, j)
 	}
 }
-
 */

@@ -44,8 +44,8 @@ func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 				return err
 			}
 
-			// content/asset.file => /assets/asset.file
-			var routerPath = "/assets/" + strings.TrimPrefix(path, "content/")
+			// content/file.md => /md/file.md
+			var routerPath = "/md/" + strings.TrimPrefix(path, "content/")
 
 			_routes[routerPath] = r
 			r.AllowedRoutes[routerPath] = html_data
