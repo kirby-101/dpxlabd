@@ -32,6 +32,11 @@ cloud.google.com/go/auth/internal/trustboundary
 # cloud.google.com/go/auth/oauth2adapt v0.2.8
 ## explicit; go 1.23.0
 cloud.google.com/go/auth/oauth2adapt
+# cloud.google.com/go/compute v1.62.0
+## explicit; go 1.25.0
+cloud.google.com/go/compute/apiv1
+cloud.google.com/go/compute/apiv1/computepb
+cloud.google.com/go/compute/internal
 # cloud.google.com/go/compute/metadata v0.9.0
 ## explicit; go 1.24.0
 cloud.google.com/go/compute/metadata
@@ -194,9 +199,6 @@ github.com/aws/smithy-go/traits
 github.com/aws/smithy-go/transport/http
 github.com/aws/smithy-go/transport/http/internal/io
 github.com/aws/smithy-go/waiter
-# github.com/beorn7/perks v1.0.1
-## explicit; go 1.11
-github.com/beorn7/perks/quantile
 # github.com/cespare/xxhash/v2 v2.3.0
 ## explicit; go 1.11
 github.com/cespare/xxhash/v2
@@ -319,14 +321,6 @@ github.com/googleapis/gax-go/v2/internallog
 github.com/googleapis/gax-go/v2/internallog/grpclog
 github.com/googleapis/gax-go/v2/internallog/internal
 github.com/googleapis/gax-go/v2/iterator
-# github.com/hetznercloud/hcloud-go/v2 v2.52.0
-## explicit; go 1.25.0
-github.com/hetznercloud/hcloud-go/v2/hcloud
-github.com/hetznercloud/hcloud-go/v2/hcloud/exp/ctxutil
-github.com/hetznercloud/hcloud-go/v2/hcloud/internal/instrumentation
-github.com/hetznercloud/hcloud-go/v2/hcloud/internal/util
-github.com/hetznercloud/hcloud-go/v2/hcloud/internal/version
-github.com/hetznercloud/hcloud-go/v2/hcloud/schema
 # github.com/kirby-101/logging-go v0.0.0-20260926204154-39f6c0782f61
 ## explicit; go 1.24.6
 github.com/kirby-101/logging-go
@@ -342,9 +336,6 @@ github.com/lib/pq/internal/proto
 github.com/lib/pq/oid
 github.com/lib/pq/pqerror
 github.com/lib/pq/scram
-# github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822
-## explicit
-github.com/munnerz/goautoneg
 # github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10
 ## explicit; go 1.20
 github.com/planetscale/vtprotobuf/protohelpers
@@ -354,26 +345,6 @@ github.com/planetscale/vtprotobuf/types/known/emptypb
 github.com/planetscale/vtprotobuf/types/known/structpb
 github.com/planetscale/vtprotobuf/types/known/timestamppb
 github.com/planetscale/vtprotobuf/types/known/wrapperspb
-# github.com/prometheus/client_golang v1.24.1
-## explicit; go 1.25.0
-github.com/prometheus/client_golang/internal/github.com/golang/gddo/httputil
-github.com/prometheus/client_golang/internal/github.com/golang/gddo/httputil/header
-github.com/prometheus/client_golang/prometheus
-github.com/prometheus/client_golang/prometheus/internal
-github.com/prometheus/client_golang/prometheus/promhttp
-github.com/prometheus/client_golang/prometheus/promhttp/internal
-# github.com/prometheus/client_model v0.6.2
-## explicit; go 1.22.0
-github.com/prometheus/client_model/go
-# github.com/prometheus/common v0.70.1
-## explicit; go 1.25.0
-github.com/prometheus/common/expfmt
-github.com/prometheus/common/model
-# github.com/prometheus/procfs v0.21.1
-## explicit; go 1.25.0
-github.com/prometheus/procfs
-github.com/prometheus/procfs/internal/fs
-github.com/prometheus/procfs/internal/util
 # github.com/spiffe/go-spiffe/v2 v2.7.0
 ## explicit; go 1.24.0
 github.com/spiffe/go-spiffe/v2/bundle/jwtbundle
@@ -385,6 +356,8 @@ github.com/spiffe/go-spiffe/v2/internal/jwtutil
 github.com/spiffe/go-spiffe/v2/internal/pemutil
 github.com/spiffe/go-spiffe/v2/internal/x509util
 github.com/spiffe/go-spiffe/v2/spiffeid
+# github.com/stretchr/testify v1.12.1
+## explicit; go 1.17
 # go.opentelemetry.io/auto/sdk v1.2.1
 ## explicit; go 1.24.0
 go.opentelemetry.io/auto/sdk
@@ -520,6 +493,7 @@ google.golang.org/api/transport/grpc
 google.golang.org/api/transport/http
 # google.golang.org/genproto v0.0.0-20260715232425-e75dac1f907d
 ## explicit; go 1.25.0
+google.golang.org/genproto/googleapis/cloud/extendedops
 google.golang.org/genproto/googleapis/type/calendarperiod
 google.golang.org/genproto/googleapis/type/date
 google.golang.org/genproto/googleapis/type/expr
@@ -701,7 +675,6 @@ google.golang.org/grpc/xds/csds
 google.golang.org/grpc/xds/googledirectpath
 # google.golang.org/protobuf v1.36.11
 ## explicit; go 1.23
-google.golang.org/protobuf/encoding/protodelim
 google.golang.org/protobuf/encoding/protojson
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
