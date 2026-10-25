@@ -69,7 +69,7 @@ install:
 
 push-bullshit:
 	git add -A
-	git commit
+	git commit -s
 	git push
 
 pull-bullshit:

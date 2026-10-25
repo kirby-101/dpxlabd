@@ -1,17 +1,53 @@
 package store
 
 import (
-	"bytes"
+	"context"
 	"io"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 )
 
-type Bucket struct{}
+type Bucket struct {
+	name   string
+	client *s3.Client
+}
+
+func (b *Bucket) ListObjects(ctx context.Context) ([]types.Object, error) {
+	lsO, err := b.client.ListObjectsV2(
+		ctx,
+		&s3.ListObjectsV2Input{
+			Bucket: aws.String(b.name),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return lsO.Contents, nil
+}
 
 func (b *Bucket) CreateObject(name string, buf io.Reader) error {}
 func (b *Bucket) RenameObject(name, newname string) error       {}
 func (b *Bucket) RemoveObject(name string)                      {}
-func (b *Bucket) ReadObject(name string) (*bytes.Buffer, error) {}
-func (b *Bucket) WriteObject(name string, buf io.Reader) error  {}
+
+// *(s3.GetObjectOutput).Body => io.ReadCloser
+func (b *Bucket) ReadObject(ctx context.Context, name string) (*s3.GetObjectOutput, error) {
+	rO, err := b.client.GetObject(
+		ctx,
+		&s3.GetObjectInput{
+			Bucket: aws.String(b.name),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return rO, nil
+}
+
+func (b *Bucket) WriteObject(name string, buf io.Reader) error {}
 
 /*
 // Read the object1 from bucket.

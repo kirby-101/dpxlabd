@@ -9,6 +9,7 @@ import (
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
 	"github.com/kirby-101/dpxlab/dpxlabd/routes"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm/auth"
 )
 
 type AssetsRoute struct {
@@ -48,6 +49,15 @@ func NewAssetsRoute(routes map[string]dpxlabd.RouteHandler) *AssetsRoute {
 	}
 
 	return r
+}
+
+func (r *AssetsRoute) Route() string {
+	return "/assets"
+}
+
+// public access
+func (r *AssetsRoute) AccessLevel() auth.Role {
+	return auth.RoleInvalid
 }
 
 func (r *AssetsRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {

@@ -10,7 +10,7 @@ import (
 	"cloud.google.com/go/storage/transfermanager"
 )
 
-func TransferFileFromURL() {}
+func (b *Bucket) TransferFileFromURL() {}
 
 /*
  * https://docs.cloud.google.com/storage/docs/samples/storage-transfer-manager-download-chunks-concurrently

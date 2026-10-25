@@ -31,7 +31,6 @@ func New(
 	cfg *config.Config,
 	db *db.Database,
 	logger *logging.Logger,
-	httpRoutes map[string]RouteHandler,
 	errRoute RouteHandler,
 ) *Orchestrator {
 	var orch = &Orchestrator{
@@ -42,7 +41,6 @@ func New(
 	}
 
 	orch.www.errR = errRoute
-	orch.www.routes = httpRoutes
 	orch.www.mux = http.NewServeMux()
 
 	return orch
@@ -70,14 +68,14 @@ func (o *Orchestrator) run() {
 	defer o.Stop()
 
 	// http listener
-	var c_err = make(chan error, 1)
+	var chanErr = make(chan error, 1)
 	go func() {
-		c_err <- o.StartWWW()
+		chanErr <- o.StartWWW()
 	}()
 
 	for {
 		select {
-		case err := <-c_err:
+		case err := <-chanErr:
 			// fatal error
 			o.Logger.Error("HTTP Listener", fmt.Sprintf("%#v", err))
 			o.Stop()
@@ -97,7 +95,7 @@ func (o *Orchestrator) handlePanic() {
 func (o *Orchestrator) handleSignals(sig os.Signal) {
 	switch sig {
 	case syscall.SIGINFO:
-		// Status
+		//!TODO: Status
 
 	case syscall.SIGINT, syscall.SIGTERM:
 		o.Logger.Info("catched SIGINT/SIGTERM")

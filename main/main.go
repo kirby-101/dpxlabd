@@ -56,5 +56,10 @@ func main() {
 		routes.NewErrorRouteHandler(),
 	)
 
+	// register http routes
+	for r, h := range routes.NewAllRoutes() {
+		orch.RegisterRoute(r, h)
+	}
+
 	orch.Start()
 }

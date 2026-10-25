@@ -4,16 +4,8 @@ import (
 	"net/http"
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm/auth"
 )
-
-/*
- * /login => /adm
- * pkg.dpxlab.de
- * pkgsched status
- * rad mirror?
- * github link
- * /md => (Impressum;etc)
- */
 
 type IndexRoute struct {
 	AllowedMethods []string
@@ -25,11 +17,19 @@ func NewIndexRoute() *IndexRoute {
 	}
 }
 
+func (r IndexRoute) Route() string {
+	return "/"
+}
+
+// public
+func (r IndexRoute) AccessLevel() auth.Role {
+	return auth.RoleInvalid
+}
+
 func (r *IndexRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {
 	if !AssertHttpMethod(ctx, r.AllowedMethods) {
 		return
 	}
 
-	ctx.W.Header().Set("Content-Type", htmlContentType)
-	CatServeFS(ctx, htmlFS, IndexPagePath)
+	CatServeHTMLFS(ctx, IndexPagePath)
 }

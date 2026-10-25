@@ -12,6 +12,13 @@ type Config struct {
 		Address string `yaml:"addr"`
 	} `yaml:"www"`
 
+	Storage struct {
+		EndpointURL     string `yaml:""`
+		AccountID       string `yaml:""`
+		AccessKeyID     string `yaml:""`
+		AccessKeySecret string `yaml:""`
+	} `yaml:""`
+
 	Logging struct {
 		File  string `yaml:"file"`
 		Level string `yaml:"level"`

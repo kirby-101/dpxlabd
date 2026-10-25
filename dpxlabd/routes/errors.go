@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm/auth"
 )
 
 var errorMessages = map[int]string{
@@ -44,6 +45,14 @@ type ErrorRouteHandler struct{}
 
 func NewErrorRouteHandler() *ErrorRouteHandler {
 	return &ErrorRouteHandler{}
+}
+
+func (r *ErrorRouteHandler) Route() string {
+	return ""
+}
+
+func (r *ErrorRouteHandler) AccessLevel() auth.Role {
+	return auth.RoleInvalid
 }
 
 // defaults to http.StatusNotFound
@@ -85,7 +94,7 @@ func Error(ctx *dpxlabd.RouteHandlerContext, code int) {
 	}
 
 	// Final
-	ctx.W.Header().Set("Content-Type", "text/html; charset=utf-8")
+	ctx.W.Header().Set("Content-Type", HTMLContentType)
 	ctx.W.WriteHeader(code)
 	_, _ = ctx.W.Write(errorPage)
 }

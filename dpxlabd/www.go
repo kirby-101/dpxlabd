@@ -1,22 +1,25 @@
 package dpxlabd
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/kirby-101/dpxlab/dpxlabd/routes"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm/auth"
 )
 
 func (o *Orchestrator) StartWWW() error {
-	o.Logger.Info("Listening on", o.cfg.WWW.Address)
+	o.Logger.Info("WWW: Listening Socket", o.cfg.WWW.Address)
 	o.www.mux.HandleFunc("/", o.HandleRoute)
 
-	o.Logger.Debug("routes", fmt.Sprintf("%#v", o.www.routes))
+	var err = http.ListenAndServe(o.cfg.WWW.Address, o.www.mux)
 
-	return http.ListenAndServe(o.cfg.WWW.Address, o.www.mux)
+	return err
 }
 
 // Handle(*RouteHandlerContext) error
 func (o *Orchestrator) RegisterRoute(route string, handler RouteHandler) {
 	o.www.routes[route] = handler
+	o.Logger.Debug("registered", route)
 }
 
 func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
@@ -33,6 +36,14 @@ func (o *Orchestrator) HandleRoute(w http.ResponseWriter, r *http.Request) {
 		o.Logger.Debug(r.RemoteAddr, trunc(r.UserAgent()), "unknown handler", r.Method, r.URL.Path)
 	}
 
+	// is authorized to handle?
+	if auth.GetClientToken().Role != h.AccessLevel() {
+		routes.Error(ctx, http.StatusForbidden)
+
+		return
+	}
+
+	// serve
 	h.Handle(
 		&RouteHandlerContext{
 			W:    w,

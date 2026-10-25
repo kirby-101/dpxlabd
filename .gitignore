@@ -12,6 +12,5 @@ go.work
 go.work.sum
 .env
 
-dpxlab+
 NOTES.md
 .dist/*

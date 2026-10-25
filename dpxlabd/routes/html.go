@@ -15,13 +15,15 @@ const (
 	BasePagePath  = "html/base.html"
 	ErrorPagePath = "html/error.html"
 	IndexPagePath = "html/index.html"
+	LoginPagePath = "html/login.html"
 )
 
 //go:embed html/*
 var htmlFS embed.FS
 
 func CatServeHTMLFS(ctx *dpxlabd.RouteHandlerContext, filePath string) {
-	//ctx.W.Header().Set("Content-Type", htmlContentType)
+	ctx.W.Header().Set("Content-Type", HTMLContentType)
+	CatServeFS(ctx, htmlFS, filePath)
 }
 
 func RenderHTML(targetPage string, data any) ([]byte, error) {

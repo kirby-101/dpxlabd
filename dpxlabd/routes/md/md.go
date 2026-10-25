@@ -7,6 +7,7 @@ import (
 
 	"github.com/kirby-101/dpxlab/dpxlabd"
 	"github.com/kirby-101/dpxlab/dpxlabd/routes"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm/auth"
 )
 
 type MarkdownRoute struct {
@@ -33,13 +34,13 @@ func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 			}
 
 			// Read Markdown File
-			md_data, err := markdownFS.ReadFile(path)
+			markdownData, err := markdownFS.ReadFile(path)
 			if err != nil {
 				return err
 			}
 
 			// Convert Markdown to HTML & Execute BasePage Template
-			html_data, err := markdown2HTML(md_data)
+			htmlData, err := markdown2HTML(markdownData)
 			if err != nil {
 				return err
 			}
@@ -48,7 +49,7 @@ func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 			var routerPath = "/md/" + strings.TrimPrefix(path, "content/")
 
 			_routes[routerPath] = r
-			r.AllowedRoutes[routerPath] = html_data
+			r.AllowedRoutes[routerPath] = htmlData
 
 			return nil
 		},
@@ -57,9 +58,18 @@ func NewMarkdownRoute(_routes map[string]dpxlabd.RouteHandler) *MarkdownRoute {
 		panic(err)
 	}
 
-	//! generate index page
+	//TODO! generate index page
 
 	return r
+}
+
+func (r MarkdownRoute) Route() string {
+	return "/md"
+}
+
+// public
+func (r MarkdownRoute) AccessLevel() auth.Role {
+	return auth.RoleInvalid
 }
 
 func (r *MarkdownRoute) Handle(ctx *dpxlabd.RouteHandlerContext) {

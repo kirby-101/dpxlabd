@@ -21,10 +21,37 @@ func setupRoutes() map[string]dpxlabd.RouteHandler {
 
 	_routes["/adm"] = adm.NewAdmRoute(_routes)
 	_routes["/assets"] = assets.NewAssetsRoute(_routes)
-	_routes["/md"] = md.NewMarkdownRoute(_routes)
+	_routes["/pub"] = md.NewMarkdownRoute(_routes)
 
 	return _routes
 }
+
+/*
+package dpxlabd
+
+import (
+	"github.com/kirby-101/dpxlab/dpxlabd/routes"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/adm"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/assets"
+	"github.com/kirby-101/dpxlab/dpxlabd/routes/md"
+)
+
+var (
+	_routes map[string]RouteHandler
+
+	// index,robots.txt,md,assets,adm:safe,proxy,board,auth
+	_indexRoute    = routes.NewIndexRoute()
+	_9309Route     = routes.NewRobotsTxtRoute()
+	_markdownRoute = md.NewMarkdownRoute()
+	_assetsRoute   = assets.NewAssetsRoute()
+	_admRoute      = adm.NewAdmRoute()
+)
+
+func NewAllRoutes() map[string]RouteHandler {
+
+}
+
+*/
 
 func setupLogger(filepath, level string) (*logging.Logger, error) {
 	var logger *logging.Logger

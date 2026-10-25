@@ -1,15 +1,8 @@
-package adm
+package auth
 
-import (
-	"net/http"
+import "github.com/kirby-101/dpxlab/dpxlabd"
 
-	"github.com/kirby-101/dpxlab/dpxlabd"
-	"github.com/kirby-101/dpxlab/dpxlabd/routes"
-)
-
-func (r *AdmRoute) HandleDashboard(ctx *dpxlabd.RouteHandlerContext) {
-	routes.Error(ctx, http.StatusNotImplemented)
-}
+func (r *AuthRoute) HandleGetLogout(ctx *dpxlabd.RouteHandlerContext) {}
 
 /*
 // We can obtain the session token from the requests cookies, which come with every request

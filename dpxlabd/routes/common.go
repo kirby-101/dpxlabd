@@ -10,6 +10,10 @@ import (
 	"github.com/kirby-101/dpxlab/dpxlabd"
 )
 
+func DontCache(ctx *dpxlabd.RouteHandlerContext) {
+	ctx.W.Header().Set("Cache-Control", "no-store")
+}
+
 func ObfuscateRoutes[T any](routes map[string]T) map[string]T {
 	var obfusRoutes = make(map[string]T, len(routes))
 
@@ -39,8 +43,7 @@ func CatServeFS(ctx *dpxlabd.RouteHandlerContext, fs embed.FS, filePath string) 
 	ctx.W.Write(buf)
 }
 
-// func(ctx, []http.Method*) => bool:isOkay?
-// renders errPage if !isOkay
+// func(ctx, []http.Method*) => bool:isOkay? | renders errPage if !isOkay
 func AssertHttpMethod(ctx *dpxlabd.RouteHandlerContext, whitelist []string) bool {
 	if !slices.Contains(whitelist, ctx.R.Method) {
 		Error(ctx, http.StatusMethodNotAllowed)
