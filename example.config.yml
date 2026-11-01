@@ -1,0 +1,15 @@
+www:
+    enabled: false
+    address: "10.0.0.1:80"
+
+sched:
+    enabled: false
+    storage:
+        endpoint: ""
+        account-id: ""
+        access-key-id: ""
+        access-key-secret: ""
+
+logging:
+    file: ""
+    level: "debug"

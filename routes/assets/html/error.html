@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Error: {{ .ErrorCode }}</title>
+  <meta property="og:title" content="dpxlab.de {{ .ErrorCode }}">
+  <meta property="og:description" content="kirby's infra">
+  <meta property="og:url" content="https://dpxlab.de/">
+
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/base.css">
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="message">
+    <h1>{{ .ErrorCode }}</h1>
+    <p>{{ .ErrorMessage }}</p>
+    <p><a href="/">Zurück</a></p>
+  </div>
+
+  <script src="/static/matrix.js"></script>
+</body>
+</html>

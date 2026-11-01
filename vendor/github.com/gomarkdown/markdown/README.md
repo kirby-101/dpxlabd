@@ -4,7 +4,7 @@
 
 Package `github.com/gomarkdown/markdown` is a Go library for parsing Markdown text and rendering as HTML.
 
-It's very fast and supports common extensions.
+It's very fast, supports common extensions and has a [CommonMark](#commonmark) mode that passes all 652 examples of the [CommonMark 0.31.2 spec](https://spec.commonmark.org/0.31.2/).
 
 Tutorial: https://blog.kowalczyk.info/article/cxn3/advanced-markdown-processing-in-go.html
 
@@ -72,27 +72,15 @@ Example source: [examples/basic.go](examples/basic.go)
 
 ## CommonMark
 
-`parser.CommonMark` parses closer to the [CommonMark](https://spec.commonmark.org/) spec. The flag is off by default. It was added so existing documents keep their current parsing.
+`parser.NewCommonMark()` creates a parser for the [CommonMark 0.31.2](https://spec.commonmark.org/0.31.2/) grammar. It's a shortcut for setting the `parser.CommonMark` flag. All 652 official examples are tested against exact HTML output. The flag is off by default, preserving existing parsing and rendering behavior.
 
-With the flag on, a blank line ends a block quote:
+CommonMark mode uses this library's parser and usual `ast` nodes, so AST traversal, transformation, custom renderers, and HTML rendering hooks remain available. It uses strict CommonMark syntax regardless of the parser's `Extensions` setting; extensions and custom block/inline parsers apply only when the flag is off. Reference destination and title overrides remain available.
 
-```markdown
-> a
-
-> b
-```
-
-That is two quotes. The same input is one quote with two paragraphs when the flag is off, which is the original Markdown behavior. To keep both paragraphs in one quote with the flag on, put `>` on the blank line:
-
-```markdown
-> a
->
-> b
-```
+When `markdown.ToHTML` receives no renderer, CommonMark documents use XHTML tags and no smart punctuation, matching the official examples. To customize rendering, supply an `html.Renderer` with your own flags.
 
 ```go
-p := parser.New()
-p.Opts.Flags |= parser.CommonMark
+p := parser.NewCommonMark()
+output := markdown.ToHTML([]byte("# Hello\n"), p, nil)
 ```
 
 For more documentation, read [this guide](https://blog.kowalczyk.info/article/cxn3/advanced-markdown-processing-in-go.html)
@@ -108,6 +96,10 @@ In particular, the `parser.Attributes` and `parser.InlineAttributes`
 extensions let the markdown author set arbitrary HTML attributes such as
 `onclick` via `{: key="value"}`. That is by design, so never enable them for
 untrusted input, even with `html.SkipHTML`.
+
+`html.Safelink` is not a sanitizer. It restricts the URL scheme of links and
+images, but doesn't check hosts (`http://example.com@evil.com/` is allowed) and
+doesn't affect raw HTML, which is only removed by `html.SkipHTML`.
 
 Here's an example of simple usage with Bluemonday:
 
@@ -136,6 +128,10 @@ You can install it with:
 To run: `mdtohtml input-file [output-file]`
 
 ## Features
+
+- **CommonMark compliance**. With `parser.NewCommonMark()`, parsing follows
+  the [CommonMark 0.31.2 spec](https://spec.commonmark.org/0.31.2/) and the
+  output matches all 652 official examples exactly. See [CommonMark](#commonmark).
 
 - **Compatibility**. The Markdown v1.0.3 test suite passes with
   the `--tidy` option. Without `--tidy`, the differences are
@@ -315,6 +311,7 @@ implements the following extensions:
   Will convert into `<h1 id="id3" class="myclass" fontsize="tiny">Header 1</h1>`.
 
 - **Mmark support**, see <https://mmark.miek.nl/post/syntax/> for all new syntax elements this adds.
+  Table captions (`Table: ...`) require both `Tables` and `Mmark`.
 
 ## Users
 

@@ -30,11 +30,14 @@ const (
 	OrderedListStart                              // Keep track of the first number used when starting an ordered list.
 	Attributes                                    // Block Attributes
 	SuperSubscript                                // Super- and subscript support: 2^10^, H~2~O.
-	EmptyLinesBreakList                           // 2 empty lines break out of list
-	Includes                                      // Support including other files.
-	Mmark                                         // Support Mmark syntax, see https://mmark.miek.nl/post/syntax/
-	InlineAttributes                              // Parse {: key="value"} after links and images
-	MarkdownInHTML                                // Parse markdown inside HTML table cells and similar tags
+	// EmptyLinesBreakList is retained for source compatibility and has no effect.
+	//
+	// Deprecated: this option is ignored.
+	EmptyLinesBreakList
+	Includes         // Support including other files.
+	Mmark            // Support Mmark syntax, see https://mmark.miek.nl/post/syntax/
+	InlineAttributes // Parse {: key="value"} after links and images
+	MarkdownInHTML   // Parse markdown inside HTML table cells and similar tags
 
 	CommonExtensions Extensions = NoIntraEmphasis | Tables | FencedCode |
 		Autolink | Strikethrough | SpaceHeadings | HeadingIDs |
@@ -58,6 +61,14 @@ func New() *Parser {
 	return NewWithExtensions(CommonExtensions)
 }
 
+// NewCommonMark creates a markdown parser that follows the CommonMark 0.31.2
+// spec. It sets the CommonMark flag; extensions don't apply in this mode.
+func NewCommonMark() *Parser {
+	p := NewWithExtensions(NoExtensions)
+	p.Opts.Flags |= CommonMark
+	return p
+}
+
 // NewWithExtensions creates a markdown parser with the given extensions.
 func NewWithExtensions(extension Extensions) *Parser {
 	doc := &ast.Document{}
@@ -76,7 +87,7 @@ func NewWithExtensions(extension Extensions) *Parser {
 
 	p.registerInline(" ", maybeLineBreak)
 	p.registerInline("*_", emphasis)
-	if extension&Strikethrough != 0 {
+	if extension&(Strikethrough|SuperSubscript) != 0 {
 		p.registerInline("~", emphasis)
 	}
 	p.registerInline("`", codeSpan)

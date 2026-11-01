@@ -14,3 +14,4 @@ go.work.sum
 
 NOTES.md
 .dist/*
+config.yml

@@ -1,5 +1,0 @@
-package auth
-
-var (
-// ERRORS
-)

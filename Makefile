@@ -7,8 +7,8 @@ GO_FLAGS		:= -trimpath -ldflags "-s -w -X main.Version=${VERSION}"
 
 DIST_DIR		= ./.dist
 DIST_BIN		:= ${DIST_DIR}/dpxlabd
-DIST_RC			= ./dpxlabd.rc.sh
-DIST_CFG		= ./dpxlabd.yml
+DIST_RC			= ./rc-service.sh
+DIST_CFG		= ./config.yml
 
 STAGE_DIR		:= ${DIST_DIR}/stage
 STAGE_PREFIX	= /usr/local
@@ -16,7 +16,7 @@ STAGE_PLIST		:= ${STAGE_DIR}/+PLIST
 STAGE_MANIFEST	:= ${STAGE_DIR}/+MANIFEST
 STAGE_BIN		:= ${STAGE_DIR}${STAGE_PREFIX}/bin/dpxlabd
 STAGE_RC		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/rc.d/dpxlabd
-STAGE_CFG		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/dpxlabd.yml
+STAGE_CFG		:= ${STAGE_DIR}${STAGE_PREFIX}/etc/dpxlabd/config.yml
 
 
 .PHONY: all
@@ -32,13 +32,15 @@ test:
 build: clean test
 	mkdir -p ${DIST_DIR}
 	@echo "[Building] ..."
-	${GO_ENV} ${GO} build ${GO_FLAGS} -o ${DIST_BIN} ./main/
+	${GO_ENV} ${GO} build ${GO_FLAGS} -o ${DIST_BIN} ./cmd/server
+	#${GO_ENV} ${GO} build ${GO_FLAGS} -o ${DIST_BIN}-cli ./cmd/cli
 
 stage: build
 	mkdir -p ${STAGE_DIR}${STAGE_PREFIX}/bin
 	install -m 755 ${DIST_BIN} ${STAGE_BIN}
 	mkdir -p ${STAGE_DIR}${STAGE_PREFIX}/etc/rc.d
 	install -m 755 ${DIST_RC} ${STAGE_RC}
+	mkdir -p ${STAGE_CFG}
 	cp ${DIST_CFG} ${STAGE_CFG}
 
 plist: stage
@@ -67,13 +69,13 @@ package: manifest stage
 install:
 	pkg add ${DIST_DIR}/dpxlabd-*.pkg
 
-push-bullshit:
+push:
 	git add -A
 	git commit -s
 	git push
 
-pull-bullshit:
+pull:
 	git pull
 
-run-bullshit: pull-bullshit build
+run: pull build
 	./.dist/dpxlabd
