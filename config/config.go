@@ -30,10 +30,10 @@ type OptionsSched struct {
 }
 
 type OptionsStorage struct {
-	EndpointURL     string `yaml:"endpoint"`         // https://%s.r2.cloudflarestorage.com
-	AccountID       string `yaml:"account-id"`       // Provide your Cloudflare account ID#
-	AccessKeyID     string `yaml:"access-key-id"`    // Retrieve your S3 API credentials for your R2 bucket via API tokens
-	AccessKeySecret string `yaml:"acces-key-secret"` // (see: https://developers.cloudflare.com/r2/api/tokens)
+	EndpointURL     string `yaml:"endpoint"`          // https://%s.r2.cloudflarestorage.com
+	AccountID       string `yaml:"account-id"`        // Provide your Cloudflare account ID#
+	AccessKeyID     string `yaml:"access-key-id"`     // Retrieve your S3 API credentials for your R2 bucket via API tokens
+	AccessKeySecret string `yaml:"access-key-secret"` // (see: https://developers.cloudflare.com/r2/api/tokens)
 }
 
 type OptionsLogging struct {

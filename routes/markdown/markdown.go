@@ -80,7 +80,7 @@ func (route *MarkdownRoute) Handle(w http.ResponseWriter, r *http.Request) {
 	// valid subroute?
 	contents, oke := route.subroutes[subroute]
 	if !oke {
-		routes.Error(http.StatusNotFound)
+		routes.Error(http.StatusNotFound).ServeHTTP(w, r)
 
 		return
 	}

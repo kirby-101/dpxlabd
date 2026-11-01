@@ -30,7 +30,9 @@ func init() {
 
 	logger, err = initLogger(config.Logging.File, config.Logging.Level)
 	if err != nil {
-		panic(err)
+		panic(
+			fmt.Errorf("logger: %s", err.Error()),
+		)
 	}
 }
 

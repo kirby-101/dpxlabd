@@ -26,7 +26,13 @@ func initConfig() (*_config.Config, error) {
 
 		if err == nil {
 			configFile = file
+			defer file.Close()
+			break
 		}
+	}
+
+	if configFile == nil {
+		panic("no config file found")
 	}
 
 	return _config.LoadFile(configFile)
@@ -38,7 +44,7 @@ func initLogger(filepath, level string) (*logging.Logger, error) {
 	if filepath == "" {
 		logger = logging.NewLogger(os.Stdout)
 	} else {
-		// #nosec G304 -- Zugriff nur auf bekannte Log- und Config-Dateien
+		// beliebige file writes via config eig
 		logFile, err := os.OpenFile(
 			filepath,
 			os.O_CREATE|os.O_WRONLY|os.O_APPEND,

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/kirby-101/dpxlabd"
+	"github.com/kirby-101/dpxlabd/routes/adm"
 	"github.com/kirby-101/dpxlabd/routes/index"
 	"github.com/kirby-101/dpxlabd/routes/markdown"
 	"github.com/kirby-101/dpxlabd/routes/robots"
@@ -14,6 +15,6 @@ func registerAllSubroutes(srv *dpxlabd.Server) {
 		_ = robots.New(srv).Register(srv.WWW.Router)
 		_ = markdown.New(srv).Register(srv.WWW.Router)
 		_ = static.New(srv).Register(srv.WWW.Router)
-		// adm
+		_ = adm.New(srv).Register(srv.WWW.Router)
 	)
 }

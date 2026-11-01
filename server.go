@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 
@@ -68,26 +69,59 @@ func (srv *Server) Start() {
 }
 
 func (srv *Server) Stop() {
-	ctx, cancel := context.WithTimeout(
-		context.Background(),
-		time.Second*5, //! DEADLINE
+
+	var (
+		waiter      sync.WaitGroup
+		doneChannel = make(chan any)
+
+		ctx, cancel = context.WithTimeout(
+			context.Background(),
+			time.Second*60, //! DEADLINE
+		)
 	)
 	defer cancel()
 
-	// www server
-	go srv.StopWWW(ctx)
+	// WWW
+	waiter.Go(
+		func() {
+			defer waiter.Done()
+			if err := srv.StopWWW(ctx); err != nil {
+				srv.Logger.Error(err.Error())
+			}
+		},
+	)
 
-	// sched
-	go srv.StopSched(ctx)
+	// Sched
+	waiter.Go(
+		func() {
+			defer waiter.Done()
+			if err := srv.StopSched(ctx); err != nil {
+				srv.Logger.Error(err.Error())
+			}
+		},
+	)
 
-	srv.Logger.Info("waiting 15s shutdown timeout")
-	<-ctx.Done()
+	// wait for completion
+	go func() {
+		waiter.Wait()
+		close(doneChannel)
+	}()
+
+	select {
+	case <-doneChannel:
+		srv.Logger.Info("shutdown successfuly completed")
+
+	case <-ctx.Done():
+		srv.Logger.Info("shutdown timeout")
+	}
 
 	srv.handlePanic()
 	os.Exit(0)
 }
 
-func (srv *Server) Status() {}
+func (srv *Server) Status() {
+	srv.Logger.Info("STATUS STUB")
+}
 
 func (srv *Server) run(sigs chan os.Signal, errChannel chan error) {
 	defer srv.Stop()

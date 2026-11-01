@@ -36,11 +36,11 @@ build: clean test
 	#${GO_ENV} ${GO} build ${GO_FLAGS} -o ${DIST_BIN}-cli ./cmd/cli
 
 stage: build
-	mkdir -p ${STAGE_DIR}${STAGE_PREFIX}/bin
+	mkdir -p $$(dirname ${STAGE_BIN})
 	install -m 755 ${DIST_BIN} ${STAGE_BIN}
-	mkdir -p ${STAGE_DIR}${STAGE_PREFIX}/etc/rc.d
+	mkdir -p $$(dirname ${STAGE_RC})
 	install -m 755 ${DIST_RC} ${STAGE_RC}
-	mkdir -p ${STAGE_CFG}
+	mkdir -p $$(dirname ${STAGE_CFG})
 	cp ${DIST_CFG} ${STAGE_CFG}
 
 plist: stage

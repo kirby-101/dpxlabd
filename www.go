@@ -23,9 +23,9 @@ func (srv *Server) StartWWW(errChannel chan error) {
 	errChannel <- srv.WWW.srv.ListenAndServe()
 }
 
-func (srv *Server) StopWWW(ctx context.Context) {
+func (srv *Server) StopWWW(ctx context.Context) error {
 	// is running?
-	srv.WWW.srv.Shutdown(ctx)
+	return srv.WWW.srv.Shutdown(ctx)
 }
 
 /*

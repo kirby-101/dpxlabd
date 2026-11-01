@@ -17,7 +17,9 @@ func (srv *Server) StartSched(errChannel chan error) {
 
 func (srv *Server) StatusSched() {}
 
-func (srv *Server) StopSched(ctx context.Context) {
+func (srv *Server) StopSched(ctx context.Context) error {
 	// is running?
 	// stop engine
+
+	return nil
 }
